@@ -22,5 +22,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
-      - name: Run smoke tests
-        run: pytest -q tests
+      - name: Compile sources
+        run: python -m compileall .
+
+      - name: CLI help
+        run: python -m interface.cli --help
+
+      - name: Run pytest
+        run: pytest -q

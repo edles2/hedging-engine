@@ -25,6 +25,8 @@ __pycache__/
 *.env
 
 # Données & artefacts locaux
+logs/
 data/
+outputs/
 reports/
 *.zip

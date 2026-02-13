@@ -6,7 +6,7 @@ Climate-informed commodity hedging pipeline with four stages:
 3. ARIMAX-style market forecasting
 4. Hedge recommendation + Streamlit reporting
 
-## Quickstart
+## Online quickstart (uses external APIs)
 
 ### 1) Create environment
 ```bash
@@ -35,7 +35,18 @@ python scripts/smoke_check.py --commodity wheat
 # or: make smoke COMMODITY=wheat
 ```
 
-## Step-by-step commands
+## Offline smoke test (no external APIs)
+
+30-second smoke command:
+```bash
+python -m interface.cli --help && pytest -q
+```
+
+This checks that:
+- the CLI entrypoint is importable and callable
+- the local smoke tests pass without network calls
+
+## Step-by-step online commands
 
 ```bash
 python -m interface.cli ingest --commodity wheat
