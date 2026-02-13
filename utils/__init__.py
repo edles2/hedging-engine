@@ -1,24 +1,9 @@
-"""Top‑level module for utility functions.
+"""Top-level module for utility functions.
 
-The :mod:`utils` package collects common functionality used across
-the global climate hedging project.  By exposing submodules at
-package level, you can import them succinctly:
-
->>> from utils import risk_metrics, scenario, data_quality, cache
-
-This file also documents the purpose of each utility module.
+Only modules that exist in this package are re-exported here.
 """
 
-from . import risk_metrics  # noqa: F401
-from . import scenario  # noqa: F401
-from . import data_quality  # noqa: F401
 from . import cache  # noqa: F401
-from . import documentation  # noqa: F401  # documentation module defines a long docstring
+from . import documentation  # noqa: F401
 
-__all__ = [
-    "risk_metrics",
-    "scenario",
-    "data_quality",
-    "cache",
-    "documentation",
-]
+__all__ = ["cache", "documentation"]
