@@ -1,0 +1,6 @@
+# Optional developer tooling
+-r requirements.txt
+
+ipykernel>=6.0
+jupyterlab>=4.0
+pytest>=8.0

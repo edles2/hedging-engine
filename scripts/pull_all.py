@@ -24,6 +24,7 @@ from typing import Iterable, Optional, Tuple
 
 import pandas as pd
 from pandas import DataFrame
+from pandas.errors import EmptyDataError
 
 # ---- Clients (must exist in your repo) ---------------------------------------
 from ingestion.clients.weather_client import WeatherClient, RegionQuery
@@ -77,7 +78,14 @@ def read_csv_optional(path: Path, date_col: Optional[str] = None) -> Optional[Da
     """
     if not path.exists() or path.stat().st_size == 0:
         return None
-    df = pd.read_csv(path)
+    try:
+        df = pd.read_csv(path)
+    except EmptyDataError:
+        logger.warning("CSV exists but is empty, skipping: %s", path)
+        return None
+    if df.empty:
+        logger.warning("CSV has headers but no rows, skipping: %s", path)
+        return None
     if date_col and date_col in df.columns:
         df[date_col] = ensure_utc_datetime(df[date_col])
     return df
@@ -210,7 +218,14 @@ def merge_silver_data() -> None:
     def safe_read(path: Path, date_col: str = "date") -> pd.DataFrame:
         if not path.exists():
             return pd.DataFrame()
-        df = pd.read_csv(path)
+        try:
+            df = pd.read_csv(path)
+        except EmptyDataError:
+            logger.warning("CSV exists but is empty, skipping during merge: %s", path)
+            return pd.DataFrame()
+        if df.empty:
+            logger.warning("CSV has headers but no rows, skipping during merge: %s", path)
+            return pd.DataFrame()
         if date_col in df.columns:
             df[date_col] = pd.to_datetime(df[date_col], utc=True, errors="coerce")
         return df

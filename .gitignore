@@ -15,6 +15,7 @@ __pycache__/
 .DS_Store
 .vscode/
 .idea/
+.codex/
 
 # Notebooks
 .ipynb_checkpoints/
@@ -24,6 +25,8 @@ __pycache__/
 *.env
 
 # Données & artefacts locaux
+logs/
 data/
+outputs/
 reports/
 *.zip
